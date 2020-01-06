@@ -32,21 +32,26 @@ import java.util.Random
 // Use a for loop to run the program 10 times, or until the "Take it easy" fortune has been selected.
 
 fun getFortuneCookie(): String {
-    val fortunes = listOf(
-        "You will have a great day!",
-        "Things will go well for you today.",
-        "Enjoy a wonderful day of success.",
-        "Be humble and all will turn out well.",
-        "Today is a good day for exercising restraint.",
-        "Take it easy and enjoy life!",
-        "Treasure your friends because they are your greatest fortune."
-    )
-    println("Enter the numerical date of your birth (just day portion, i.e. 8/9/1997, enter 8):")
-    val response = readLine()
-    val birthday = response?.toIntOrNull() ?: Random().nextInt(32)
-    return fortunes[birthday % fortunes.size]
+  val fortunes = listOf(
+          "You will have a great day!",
+          "Things will go well for you today.",
+          "Enjoy a wonderful day of success.",
+          "Be humble and all will turn out well.",
+          "Today is a good day for exercising restraint.",
+          "Take it easy and enjoy life!",
+          "Treasure your friends because they are your greatest fortune."
+  )
+  println("Enter the numerical date of your birth (just day portion, i.e. 8/9/1997, enter 8):")
+  val response = readLine()
+  val birthday = response?.toIntOrNull() ?: Random().nextInt(32)
+  return fortunes[birthday % fortunes.size]
 }
 
 fun main(args: Array<String>) {
-    println(getFortuneCookie())
+  var output: String
+  for (i in 0..9) {
+    output = getFortuneCookie()
+    println(output)
+    if (output === "Take it easy and enjoy life!") break
+  }
 }
