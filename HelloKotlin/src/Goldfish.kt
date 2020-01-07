@@ -13,9 +13,9 @@ fun feedTheFish() {
   swim(speed = "fast")
   swim("slow")
   swim("at a medium pace")
-  shouldChangeWater(day, 20, 50)
-  shouldChangeWater(day)
-  shouldChangeWater(day, dirty = 29)
+  println(shouldChangeWater(day, 20, 50))
+  println(shouldChangeWater(day))
+  println(shouldChangeWater(day, dirty = 29))
 }
 
 fun randomDay(): String {
@@ -46,5 +46,17 @@ fun shouldChangeWater(
     temperature: Int = 22,
     dirty: Int = 20
 ): Boolean {
-  return true
+//  val isTooHot = temperature > 30
+//  val isDirty = dirty > 30
+//  val isSunday = day == "Sunday"
+  return when {
+    isTooHot(temperature) -> true
+    isDirty(dirty) -> true
+    isSunday(day) -> true
+    else -> false
+  }
 }
+
+fun isTooHot(temperature: Int) = temperature > 30
+fun isDirty(dirty: Int) = dirty > 30
+fun isSunday(day: String) = day == "Sunday"
