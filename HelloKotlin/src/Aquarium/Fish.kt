@@ -1,0 +1,33 @@
+package Aquarium
+
+class Fish(val friendly: Boolean = true, volumeNeeded: Int) {
+
+  val size: Int
+
+  init {
+    println("first init block")
+  }
+
+  constructor() : this(true, 9) {
+    println("running secondary constructor")
+  }
+
+  init {
+    var sizeNeeded = volumeNeeded
+    if (!friendly) sizeNeeded *= 2
+    size = sizeNeeded
+  }
+
+  init {
+    println("constructed fish of size $volumeNeeded final size ${this.size}")
+  }
+
+  init {
+    println("last init")
+  }
+}
+
+fun fishExample() {
+  val fish = Fish()
+  println("Is the fish friendly? ${fish.friendly}. It needs volume ${fish.size}")
+}

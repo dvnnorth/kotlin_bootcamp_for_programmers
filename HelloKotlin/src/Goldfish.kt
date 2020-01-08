@@ -16,6 +16,7 @@ fun feedTheFish() {
   println(shouldChangeWater(day, 20, 50))
   println(shouldChangeWater(day))
   println(shouldChangeWater(day, dirty = 29))
+  dirtyProcessor()
 }
 
 fun randomDay(): String {
@@ -44,7 +45,10 @@ fun swim(speed: String = "fast") {
 fun shouldChangeWater(
     day: String,
     temperature: Int = 22,
-    dirty: Int = 20
+    // CUIDADO
+    // This is a really cool feature of Kotlin, but be careful not to use expensive functions to initialize
+    // default parameters! No file i/o, no memory heavy stuff
+    dirty: Int = getDirtySensorReading()
 ): Boolean {
 //  val isTooHot = temperature > 30
 //  val isDirty = dirty > 30
@@ -60,3 +64,26 @@ fun shouldChangeWater(
 fun isTooHot(temperature: Int) = temperature > 30
 fun isDirty(dirty: Int) = dirty > 30
 fun isSunday(day: String) = day == "Sunday"
+
+fun getDirtySensorReading() = 20
+
+var dirty = 20
+
+val waterFilter: (Int) -> Int = { dirty -> dirty / 2 }
+
+fun feedFish(dirty: Int) = dirty + 10
+
+fun updateDirty(dirty: Int, operation: (Int) -> Int): Int {
+  return operation(dirty)
+}
+
+fun dirtyProcessor() {
+  dirty = updateDirty(dirty, waterFilter)
+  println("dirty: $dirty")
+  dirty = updateDirty(dirty, ::feedFish)
+  println("dirty: $dirty")
+  dirty = updateDirty(dirty) { dirty ->
+    dirty + 50
+  }
+  println("dirty: $dirty")
+}

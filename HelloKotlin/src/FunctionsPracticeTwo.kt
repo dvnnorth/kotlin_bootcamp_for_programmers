@@ -2,11 +2,10 @@ import java.util.*
 
 fun main(args: Array<String>) {
   var fortune: String
-  for (i in 1..10) {
+  do {
     fortune = getFortune(getBirthday())
     println("\nYour fortune is: $fortune")
-    if (fortune.contains("Take it easy")) break;
-  }
+  } while (!fortune.contains("Take it easy"))
 }
 
 fun getFortune(birthday: Int): String {
